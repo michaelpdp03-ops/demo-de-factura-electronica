@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import Sidebar from './Sidebar'
-import { Menu, Search, Bell, Sparkles, RefreshCw } from 'lucide-react'
+import { Menu, Search, Bell, RefreshCw } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
-import { DEMO_MODE, resetDemoData } from '../lib/demoMode'
+import { resetDemoData } from '../lib/demoMode'
 
 const titleMap = {
   '/': 'Dashboard',
@@ -35,24 +35,15 @@ export default function Layout({ children }) {
 
             <h1 className="text-[15px] font-semibold text-text-primary">{title}</h1>
 
-            {DEMO_MODE && (
-              <div className="hidden sm:flex items-center gap-1.5 h-7 px-2.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10.5px] font-bold uppercase tracking-wider">
-                <Sparkles className="w-3 h-3" strokeWidth={2.5} />
-                Modo Demo
-              </div>
-            )}
-
             <div className="ml-auto flex items-center gap-2">
-              {DEMO_MODE && (
-                <button
-                  onClick={() => { if (confirm('¿Reiniciar la demo con datos limpios?')) resetDemoData() }}
-                  title="Reiniciar demo"
-                  className="hidden sm:inline-flex items-center gap-1.5 h-9 px-3 rounded-lg text-text-muted hover:text-text-primary hover:bg-bg-card text-[12px] font-medium transition-colors"
-                >
-                  <RefreshCw className="w-3.5 h-3.5" />
-                  Reiniciar
-                </button>
-              )}
+              <button
+                onClick={() => { if (confirm('¿Borrar todos los datos y empezar desde cero?')) resetDemoData() }}
+                title="Reiniciar datos"
+                className="hidden sm:inline-flex items-center gap-1.5 h-9 px-3 rounded-lg text-text-muted hover:text-text-primary hover:bg-bg-card text-[12px] font-medium transition-colors"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+                Reiniciar
+              </button>
               <div className="hidden md:flex items-center gap-2 h-9 px-3 rounded-lg bg-bg-card border border-border-subtle text-[13px] text-text-muted w-72">
                 <Search className="w-4 h-4" />
                 <input

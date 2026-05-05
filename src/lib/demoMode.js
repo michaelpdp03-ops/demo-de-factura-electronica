@@ -182,41 +182,38 @@ function generateTransacciones() {
 
 export const demoTransacciones = generateTransacciones()
 
-// ─── Seed: inicializa localStorage si está vacío ────────────────────────────
+// ─── Seed: limpia datos demo de versiones anteriores y arranca en cero ───────
 export function seedDemoData() {
-  if (!DEMO_MODE) return
+  const dataKeys = [
+    'fincontrol_config', 'fincontrol_ncf', 'fincontrol_cert',
+    'fincontrol_facturas', 'fincontrol_transacciones', 'fincontrol_clientes'
+  ]
+  const oldSeedKeys = [
+    'fincontrol_demo_seeded_v2', 'fincontrol_demo_seeded_v3', 'fincontrol_demo_seeded_v4'
+  ]
 
-  const seedKey = 'fincontrol_demo_seeded_v4'
+  // Si venía del modo demo anterior, borra todo y arranca limpio
+  const hadDemoData = oldSeedKeys.some(k => localStorage.getItem(k))
+  oldSeedKeys.forEach(k => localStorage.removeItem(k))
+
+  const seedKey = 'fincontrol_seeded_v5'
   if (localStorage.getItem(seedKey)) return
 
-  // Solo siembra si no hay configuración previa
-  if (!localStorage.getItem('fincontrol_config')) {
-    localStorage.setItem('fincontrol_config', JSON.stringify(demoBusiness))
-  }
-  if (!localStorage.getItem('fincontrol_ncf')) {
-    localStorage.setItem('fincontrol_ncf', JSON.stringify(demoNCF))
-  }
-  if (!localStorage.getItem('fincontrol_cert')) {
-    localStorage.setItem('fincontrol_cert', JSON.stringify(demoCert))
-  }
-  if (!localStorage.getItem('fincontrol_facturas')) {
-    localStorage.setItem('fincontrol_facturas', JSON.stringify(demoFacturas))
-  }
-  if (!localStorage.getItem('fincontrol_transacciones')) {
-    localStorage.setItem('fincontrol_transacciones', JSON.stringify(demoTransacciones))
+  if (hadDemoData) {
+    dataKeys.forEach(k => localStorage.removeItem(k))
   }
 
   localStorage.setItem(seedKey, '1')
 }
 
-// ─── Reset: vuelve a estado demo limpio ─────────────────────────────────────
+// ─── Reset: limpia todos los datos del usuario ────────────────────────────────
 export function resetDemoData() {
   ['fincontrol_config', 'fincontrol_ncf', 'fincontrol_cert',
-   'fincontrol_facturas', 'fincontrol_transacciones',
-   'fincontrol_demo_seeded_v2', 'fincontrol_demo_seeded_v3', 'fincontrol_demo_seeded_v4'].forEach((k) => {
+   'fincontrol_facturas', 'fincontrol_transacciones', 'fincontrol_clientes',
+   'fincontrol_demo_seeded_v2', 'fincontrol_demo_seeded_v3',
+   'fincontrol_demo_seeded_v4', 'fincontrol_seeded_v5'].forEach((k) => {
     localStorage.removeItem(k)
   })
-  seedDemoData()
   window.location.reload()
 }
 
