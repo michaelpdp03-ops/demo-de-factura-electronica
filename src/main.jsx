@@ -8,6 +8,16 @@ import { ToastProvider } from './components/Toast.jsx'
 
 seedDemoData()
 
+// Migración: convertir facturas pendientes a aprobadas
+try {
+  const stored = localStorage.getItem('fincontrol_facturas')
+  if (stored) {
+    const facturas = JSON.parse(stored)
+    const migradas = facturas.map(f => f.estado === 'pendiente' ? { ...f, estado: 'aprobada' } : f)
+    localStorage.setItem('fincontrol_facturas', JSON.stringify(migradas))
+  }
+} catch {}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
