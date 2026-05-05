@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { facturas as mockFacturas, transacciones as mockTransacciones, clientes as mockClientes } from '../data/mockData'
+
 import { supabase } from '../lib/supabase'
 
 // Verifica si el usuario ya configuró sus variables de entorno
@@ -169,7 +169,7 @@ export const CATEGORIAS_GASTO = [
 ]
 
 export function useTransacciones() {
-  const initialTransacciones = isSupabaseConfigured() ? [] : mockTransacciones
+  const initialTransacciones = []
   const [transacciones, setTransacciones] = useLocalStorage('fincontrol_transacciones', initialTransacciones)
 
   useEffect(() => {
@@ -209,7 +209,7 @@ export function useTransacciones() {
 
 // ─── Facturas (Supabase + Local) ───────────────────────────────────────────
 export function useFacturas() {
-  const initialFacturas = isSupabaseConfigured() ? [] : mockFacturas
+  const initialFacturas = []
   const [facturas, setFacturas] = useLocalStorage('fincontrol_facturas', initialFacturas)
 
   useEffect(() => {
@@ -248,7 +248,7 @@ export function useFacturas() {
 
 // ─── Clientes (Supabase + Local) ───────────────────────────────────────────
 export function useClientes() {
-  const initialClientes = isSupabaseConfigured() ? [] : mockClientes
+  const initialClientes = []
   const [clientes, setClientes] = useLocalStorage('fincontrol_clientes', initialClientes)
 
   useEffect(() => {

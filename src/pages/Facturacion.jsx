@@ -14,7 +14,6 @@ import {
   useFacturas, useBusinessConfig, useNCFSequence, useCertStatus, isConfigured, useClientes
 } from '../store/useAppStore'
 import { sendDocument, buildEcf31 } from '../lib/mseller'
-import { business } from '../data/mockData'
 import { fmtRD, fmtDate } from '../lib/format'
 
 const ITBIS = 0.18
