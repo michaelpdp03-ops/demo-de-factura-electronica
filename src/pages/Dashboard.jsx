@@ -2,8 +2,7 @@ import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import {
   Wallet, ArrowUpRight, ArrowDownRight, FileText, Plus, ArrowRight,
-  Settings, CheckCircle2, AlertCircle, Download, Building2, Hash,
-  Receipt, Users, TrendingUp, Clock, Award, Percent, Package
+  Download, Receipt, Users, TrendingUp, Clock, Award, Percent, Package
 } from 'lucide-react'
 import {
   AreaChart, Area, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid,
@@ -11,7 +10,7 @@ import {
 } from 'recharts'
 import StatCard from '../components/StatCard'
 import Badge from '../components/Badge'
-import { useFacturas, useBusinessConfig, isConfigured, useNCFSequence, useTransacciones } from '../store/useAppStore'
+import { useFacturas, useBusinessConfig, useTransacciones } from '../store/useAppStore'
 import { fmtRD, fmtDate } from '../lib/format'
 import { Link } from 'react-router-dom'
 
@@ -31,83 +30,11 @@ const ChartTooltip = ({ active, payload, label }) => {
   )
 }
 
-function SetupGuide({ config, ncfSeq }) {
-  const steps = [
-    {
-      done: isConfigured(config),
-      label: 'Datos de tu negocio',
-      desc: 'RNC, nombre y dirección',
-      Icon: Building2,
-    },
-    {
-      done: !!(ncfSeq.rangoInicio && ncfSeq.rangoFin && ncfSeq.actual > 0),
-      label: 'Números de factura (NCF)',
-      desc: 'Rango asignado por la DGII',
-      Icon: Hash,
-    },
-  ]
-  const pending = steps.filter((s) => !s.done).length
-  if (pending === 0) return null
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-5"
-    >
-      <div className="flex items-start justify-between gap-4 mb-4">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <AlertCircle className="w-4 h-4 text-amber-400" />
-            <h3 className="text-[14px] font-semibold text-text-primary">
-              Completa tu configuración para empezar a facturar
-            </h3>
-          </div>
-          <p className="text-[12.5px] text-text-muted">
-            Te faltan {pending} paso{pending > 1 ? 's' : ''} para emitir facturas electrónicas a la DGII.
-          </p>
-        </div>
-        <Link
-          to="/configuracion"
-          className="shrink-0 inline-flex items-center gap-1.5 h-8 px-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-black text-[12px] font-semibold transition-colors"
-        >
-          <Settings className="w-3.5 h-3.5" />
-          Configurar
-        </Link>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {steps.map((s, i) => (
-          <div
-            key={i}
-            className={`flex items-center gap-3 rounded-lg px-3 py-2.5 border ${
-              s.done ? 'border-accent/20 bg-accent/5' : 'border-border-subtle bg-bg-elevated'
-            }`}
-          >
-            <div className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 ${
-              s.done ? 'bg-accent/15 text-accent' : 'bg-bg-card text-text-muted'
-            }`}>
-              <s.Icon className="w-3.5 h-3.5" strokeWidth={1.8} />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-[12.5px] font-semibold text-text-primary truncate">{s.label}</div>
-              <div className="text-[11px] text-text-muted">{s.desc}</div>
-            </div>
-            {s.done
-              ? <CheckCircle2 className="w-4 h-4 text-accent shrink-0" />
-              : <span className="w-4 h-4 rounded-full border-2 border-border shrink-0" />}
-          </div>
-        ))}
-      </div>
-    </motion.div>
-  )
-}
 
 export default function Dashboard() {
   const { facturas } = useFacturas()
   const { transacciones } = useTransacciones()
   const [config] = useBusinessConfig()
-  const { seq: ncfSeq } = useNCFSequence()
   const businessName = config.razonSocial || 'Mi Negocio'
 
   // ─── Cálculos derivados de las facturas ───────────────────────────────────
@@ -263,8 +190,6 @@ export default function Dashboard() {
         </Link>
       </div>
 
-      {/* Setup guide */}
-      <SetupGuide config={config} ncfSeq={ncfSeq} />
 
       {/* Quick actions */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">

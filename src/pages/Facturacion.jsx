@@ -2,10 +2,9 @@ import { useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Search, Plus, MessageCircle, FileText, X, Receipt,
-  Send, Loader2, CheckCircle2, XCircle, Settings, ChevronDown,
+  Send, Loader2, CheckCircle2, XCircle, ChevronDown,
   Eye, Bell
 } from 'lucide-react'
-import { Link } from 'react-router-dom'
 import Badge from '../components/Badge'
 import MSellerPanel from '../components/MSellerPanel'
 import InvoiceDetail from '../components/InvoiceDetail'
@@ -143,29 +142,6 @@ export default function Facturacion() {
         </button>
       </div>
 
-      {/* Setup needed */}
-      {!ready && (
-        <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }}
-          className="flex flex-wrap items-center gap-3 p-4 rounded-xl bg-amber-500/8 border border-amber-500/20">
-          <span className="text-2xl">⚠️</span>
-          <div className="flex-1">
-            <div className="text-[13.5px] font-bold text-amber-300">Faltan algunos pasos pa' enviar facturas a DGII</div>
-            <div className="text-[12.5px] text-amber-400/80 mt-0.5">
-              Las facturas se guardarán como borradores hasta que termines la configuración.
-              Faltan:{' '}
-              {!isConfigured(config) && <span className="font-semibold">datos del negocio</span>}
-              {!isConfigured(config) && !certStatus.uploaded && <span>, </span>}
-              {!certStatus.uploaded && <span className="font-semibold">firma digital</span>}
-              {!certStatus.uploaded && !isSeqConfigured && <span>, </span>}
-              {!isSeqConfigured && <span className="font-semibold">números de factura</span>}
-            </div>
-          </div>
-          <Link to="/configuracion"
-            className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-bg text-[13px] font-bold transition-colors">
-            <Settings className="w-4 h-4" /> Completar configuración
-          </Link>
-        </motion.div>
-      )}
 
       {ready && remaining <= 50 && (
         <div className="flex items-center gap-2 p-3 rounded-lg bg-amber-500/8 border border-amber-500/20 text-[12.5px] text-amber-400">
