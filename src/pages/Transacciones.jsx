@@ -256,7 +256,7 @@ export default function Transacciones() {
                     className="tinp" required />
                 </TField>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <TField label="Monto (RD$)" required>
                     <input type="number" min="0" step="0.01"
                       value={form.monto}

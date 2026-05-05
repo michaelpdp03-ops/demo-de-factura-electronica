@@ -342,7 +342,7 @@ export default function Facturacion() {
                     placeholder="Ej: Catering ejecutivo, Almuerzo corporativo..." className="minput" required />
                 </MField>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <MField label="Cantidad" required>
                     <input type="number" min="1" value={form.cantidad}
                       onChange={(e) => setForm({ ...form, cantidad: e.target.value })}

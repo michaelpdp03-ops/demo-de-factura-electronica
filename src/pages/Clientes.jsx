@@ -198,7 +198,7 @@ export default function Clientes() {
                     placeholder="Ej: Banco Popular Dominicano" className="w-full h-10 px-3.5 bg-bg-card border border-border-subtle rounded-xl text-[13.5px] text-text-primary placeholder:text-text-muted focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all" required />
                 </label>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <label className="block">
                     <span className="block text-[13px] font-semibold text-text-primary mb-1.5">
                       RNC / Cédula
@@ -218,7 +218,7 @@ export default function Clientes() {
                   </label>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <label className="block">
                     <span className="block text-[13px] font-semibold text-text-primary mb-1.5">
                       Teléfono

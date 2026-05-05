@@ -105,9 +105,9 @@ export default function InvoiceDetail({ factura, onClose }) {
         >
 
           {/* Header con acciones (oculto al imprimir) */}
-          <div className="flex items-center justify-between px-5 py-3.5 border-b border-border-subtle sticky top-0 bg-bg-elevated z-10 print:hidden">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-5 py-3.5 border-b border-border-subtle sticky top-0 bg-bg-elevated z-10 print:hidden gap-3 sm:gap-0">
             <h3 className="text-[14px] font-bold text-text-primary">Detalle de factura</h3>
-            <div className="flex items-center gap-1.5">
+            <div className="flex flex-wrap items-center gap-1.5 w-full sm:w-auto">
               <button onClick={handlePrint}
                 title="Imprimir / Guardar PDF"
                 className="inline-flex items-center gap-1.5 h-8 px-3 rounded-lg bg-bg-card hover:bg-bg-hover border border-border-subtle text-[12px] font-semibold text-text-secondary transition-colors">
@@ -143,7 +143,7 @@ export default function InvoiceDetail({ factura, onClose }) {
             `}</style>
 
             {/* Encabezado del negocio */}
-            <div className="flex items-start justify-between mb-8 pb-6 border-b-2 border-zinc-200">
+            <div className="flex flex-col sm:flex-row items-start justify-between mb-8 pb-6 border-b-2 border-zinc-200 gap-4 sm:gap-0">
               <div className="flex items-start gap-4">
                 {config.logoDataUrl ? (
                   <div className="w-16 h-16 rounded-lg overflow-hidden bg-zinc-50 border border-zinc-200 flex items-center justify-center shrink-0">
@@ -166,7 +166,7 @@ export default function InvoiceDetail({ factura, onClose }) {
                   </div>
                 </div>
               </div>
-              <div className="text-right">
+              <div className="text-left sm:text-right w-full sm:w-auto">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10.5px] font-bold uppercase tracking-wider">
                   <EstadoIcon className="w-3.5 h-3.5" />
                   Factura electrónica
@@ -178,7 +178,7 @@ export default function InvoiceDetail({ factura, onClose }) {
             </div>
 
             {/* Datos del cliente */}
-            <div className="grid grid-cols-2 gap-6 mb-7">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-7">
               <div>
                 <h3 className="text-[10.5px] font-bold uppercase tracking-wider text-zinc-500 mb-2">Cliente</h3>
                 <p className="text-[14px] font-bold text-zinc-900">{factura.cliente}</p>
@@ -222,7 +222,7 @@ export default function InvoiceDetail({ factura, onClose }) {
             </div>
 
             {/* Totales + QR */}
-            <div className="grid grid-cols-2 gap-8 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-6">
               <div className="flex flex-col items-start justify-end">
                 <div className="text-[10.5px] font-bold uppercase tracking-wider text-zinc-500 mb-2">
                   Verifica esta factura en DGII
