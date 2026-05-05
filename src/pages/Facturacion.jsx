@@ -71,7 +71,6 @@ export default function Facturacion() {
     }
 
     if (!ready) {
-      // Guardar borrador local
       const id = 'B' + String(Date.now()).slice(-10)
       addFactura({
         id, cliente: form.cliente, rnc: form.rnc,
@@ -79,7 +78,7 @@ export default function Facturacion() {
         precio: Number(form.precio),
         itbis: +itbis.toFixed(2), total: +total.toFixed(2),
         fecha: new Date().toISOString().slice(0, 10),
-        estado: 'pendiente', modo: 'local'
+        estado: 'aprobada', modo: 'local'
       })
       setForm(empty)
       setShowForm(false)
@@ -208,9 +207,6 @@ export default function Facturacion() {
                   className="hover:bg-bg-hover/40 transition-colors group cursor-pointer">
                   <td className="px-5 py-3.5">
                     <span className="font-mono text-[12px] text-text-secondary">{f.id}</span>
-                    {f.modo === 'local' && (
-                      <div className="text-[10.5px] text-amber-400 mt-0.5">Borrador local</div>
-                    )}
                     {f.trackId && (
                       <div className="text-[10.5px] text-text-muted font-mono mt-0.5">
                         DGII: {f.trackId.slice(0, 10)}...
